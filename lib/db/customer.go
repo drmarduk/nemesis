@@ -22,7 +22,7 @@ type Customer struct {
 	Mobil string
 	Mail  string
 
-	CrreatedLocation Location
+	CreatedLocation Location
 
 	IsBio    bool
 	IsBanned bool
