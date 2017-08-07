@@ -2,7 +2,6 @@ package db
 
 import (
 	"errors"
-	"time"
 
 	"github.com/jinzhu/gorm"
 )
@@ -49,8 +48,7 @@ func NewCustomer(name, surname, addon, street, zipcode, city, phone, mobil, mail
 		Mobil: mobil,
 		Mail:  mail,
 
-		CreatedAt:       time.Now().UTC(),
-		CreatedLocation: location,
+		// CreatedLocation: ,
 
 		IsBio:    false,
 		IsBanned: false,
