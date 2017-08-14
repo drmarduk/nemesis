@@ -2,13 +2,15 @@ package db
 
 import (
 	"errors"
-
-	"github.com/jinzhu/gorm"
+	"time"
 )
 
 // Customer represents the database table of a customer
 type Customer struct {
-	gorm.Model
+	ID        int
+	PriapusID int
+	CreatedAt time.Time
+
 	Name    string
 	Surname string
 	Addon   string

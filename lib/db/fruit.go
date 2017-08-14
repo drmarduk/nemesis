@@ -28,3 +28,12 @@ func GetFruit(id int) (Fruit, error) {
 
 	return Fruit{}, fmt.Errorf("fruit %d not found", id)
 }
+
+func checkFruit(fruit int) bool {
+	for _, f := range fruits {
+		if f.ID == fruit {
+			return true
+		}
+	}
+	return false
+}

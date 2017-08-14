@@ -10,9 +10,9 @@ type Container struct {
 	ID        int64
 	CreatedAt time.Time
 	ClosedAt  time.Time
-	Fruit     int8
-	Status    int8
-	Location  int8
+	Fruit     int
+	Status    int
+	Location  int
 	IsBio     bool
 }
 
@@ -24,8 +24,8 @@ type Container struct {
 */
 
 // NewContainer creates a new db container
-func NewContainer(location, fruit int8, bio bool) (*Container, error) {
-	if !checkLocatio(location) {
+func NewContainer(location, fruit int, bio bool) (*Container, error) {
+	if !checkLocation(location) {
 		return nil, fmt.Errorf("location is not valid")
 	}
 	if !checkFruit(fruit) {
@@ -33,7 +33,7 @@ func NewContainer(location, fruit int8, bio bool) (*Container, error) {
 	}
 	query := `
 		insert into container(id, created_at, fruit, status, location, bio)
-		values(null, ?, ?, ?, ?)`
+		values(null, ?, ?, ?, ?, ?)`
 
 	c, err := dbSession()
 	if err != nil {

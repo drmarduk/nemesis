@@ -8,3 +8,7 @@ type Location struct {
 	Name    string
 	Surname string
 }
+
+func checkLocation(loc int) bool {
+	return true
+}
