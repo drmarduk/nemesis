@@ -9,11 +9,10 @@ import (
 type Customer struct {
 	ID        int
 	PriapusID int
-	CreatedAt time.Time
 
 	Name    string
 	Surname string
-	Addon   string
+	Addon   string // Zusatz
 
 	Street  string
 	Zipcode string // we need the leading zero
@@ -23,10 +22,15 @@ type Customer struct {
 	Mobil string
 	Mail  string
 
-	CreatedLocation Location
+	Group      int
+	IsBio      bool
+	IsBanned   bool
+	CanDeliver bool
 
-	IsBio    bool
-	IsBanned bool
+	CreatedAt      time.Time
+	CreatedWhere   int
+	CreatedBy      int
+	CreatedAPITime time.Time
 }
 
 // NewCustomer is called only once for each customer
@@ -52,8 +56,9 @@ func NewCustomer(name, surname, addon, street, zipcode, city, phone, mobil, mail
 
 		// CreatedLocation: ,
 
-		IsBio:    false,
-		IsBanned: false,
+		IsBio:      false,
+		IsBanned:   false,
+		CanDeliver: true,
 	}
 	// TODO: insert into database and set ID
 	return c, nil

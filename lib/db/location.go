@@ -1,12 +1,20 @@
 package db
 
-import "github.com/jinzhu/gorm"
-
 // Location represents the House where a customre can bring is fruits
 type Location struct {
-	gorm.Model
+	ID      int
 	Name    string
 	Surname string
+	Addon   string // Zusatz
+
+	Street  string
+	Zipcode string // we need the leading zero
+	City    string
+	ZipCode string
+
+	Phone string
+	Mobil string
+	Email string
 }
 
 func checkLocation(loc int) bool {

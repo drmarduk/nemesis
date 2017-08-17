@@ -1,19 +1,28 @@
 package db
 
 import (
+	"database/sql"
 	"fmt"
+	"log"
 	"time"
 )
 
 // Container is a main place to combine fruits
 type Container struct {
-	ID        int64
-	CreatedAt time.Time
-	ClosedAt  time.Time
-	Fruit     int
-	Status    int
-	Location  int
-	IsBio     bool
+	ID     int64
+	Fruit  int
+	Status int
+	IsBio  bool
+
+	CreatedAt      time.Time
+	CreatedWhere   int
+	CreatedBy      int
+	CreatedAPITime time.Time
+
+	ClosedAt      time.Time
+	ClosedWhere   int
+	ClosedBy      int
+	ClosedAPITime time.Time
 }
 
 /*
@@ -24,7 +33,7 @@ type Container struct {
 */
 
 // NewContainer creates a new db container
-func NewContainer(location, fruit int, bio bool) (*Container, error) {
+func NewContainer(c *sql.DB, location, fruit int, bio bool) (*Container, error) {
 	if !checkLocation(location) {
 		return nil, fmt.Errorf("location is not valid")
 	}
@@ -35,30 +44,24 @@ func NewContainer(location, fruit int, bio bool) (*Container, error) {
 		insert into container(id, created_at, fruit, status, location, bio)
 		values(null, ?, ?, ?, ?, ?)`
 
-	c, err := dbSession()
-	if err != nil {
-		return nil, err
-	}
-	defer c.Close()
-
 	con := &Container{
-		CreatedAt: time.Now().UTC(),
-		ClosedAt:  time.Time{}, // should be zero value
-		Fruit:     fruit,
-		Status:    1,
-		Location:  location,
-		IsBio:     bio,
+		CreatedAt:    time.Now().UTC(),
+		ClosedAt:     time.Time{}, // should be zero value
+		Fruit:        fruit,
+		Status:       1,
+		CreatedWhere: location,
+		IsBio:        bio,
 	}
 
-	result, err := c.Exec(query, con.CreatedAt, con.Fruit, con.Status, con.Location, con.IsBio)
+	result, err := c.Exec(query, con.CreatedAt, con.Fruit, con.Status, con.CreatedWhere, con.IsBio)
 	if err != nil {
-		logger.Printf("error while inserting new container: %v\n", err)
+		log.Printf("error while inserting new container: %v\n", err)
 		return nil, err
 	}
 
 	con.ID, err = result.LastInsertId()
 	if err != nil {
-		logger.Printf("error while reading result ID: %v\n", err)
+		log.Printf("error while reading result ID: %v\n", err)
 		return nil, err
 	}
 
