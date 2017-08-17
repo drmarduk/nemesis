@@ -25,7 +25,7 @@ func grantRights(tx *sql.Tx, db, user string) {
 
 // dropRights removes the rights of a user on a database
 // crahes on failure
-func dropRights(tx *sql.Tx, user, db string) {
+func dropRights(tx *sql.DB, user, db string) {
 	// q := fmt.Sprintf(`REASSIGN OWNED BY "%s" TO "postgres";`, user)
 	q := fmt.Sprintf(
 		`REVOKE ALL PRIVILEGES ON DATABASE %s FROM %s;`,
@@ -34,7 +34,8 @@ func dropRights(tx *sql.Tx, user, db string) {
 	)
 	r, err := tx.Exec(q)
 	if err != nil {
-		log.Fatalf("Could not delete rights from %s on %s: %v\n", user, db, err)
+		log.Printf("Warning: Could not delete rights from %s on %s: %v\n", user, db, err)
+		return
 	}
 	log.Printf("Rights removed from %s on %s (%d rows affected)\n", user, db, getRowcount(r))
 }

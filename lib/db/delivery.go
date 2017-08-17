@@ -9,15 +9,14 @@ type Delivery struct {
 	ID         int
 	CustomerID int
 	LocationID int
-	Fruit      int
+	FruitID    int
 	Amount     float64
-	Container  int
 
 	Typ    int // normal, Löschen, Korrektur
 	Status int
 
-	CreatedAt    time.Time
-	CreatedWhere int
-	CreatedBy    int
-	APITime      time.Time
+	CreatedAt      time.Time
+	CreatedWhere   int
+	CreatedBy      int
+	CreatedAPITime time.Time
 }

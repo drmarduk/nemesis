@@ -4,7 +4,7 @@ package tables
 var Customer string = `
 /* create table customer */
 create table if not exists customer(
-    id serial primary key,
+    customer_id serial primary key,
     priapus_id int not null unique,
     
     name text not null,

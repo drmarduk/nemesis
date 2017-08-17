@@ -30,11 +30,12 @@ func createUser(tx *sql.Tx, user, pw string, admin bool) {
 
 // dropUser deletes a user
 // crashed on failure
-func dropUser(tx *sql.Tx, user string) {
+func dropUser(tx *sql.DB, user string) {
 	q := fmt.Sprintf(`DROP USER IF EXISTS %s;`, user)
 	r, err := tx.Exec(q)
 	if err != nil {
-		log.Fatalf("Could not delete user %s: %v\n", user, err)
+		log.Printf("Warning: Could not delete user %s: %v\n", user, err)
+		return
 	}
 
 	log.Printf("User %s deleted (%d rows affected)\n", user, getRowcount(r))

@@ -77,6 +77,10 @@ func main() {
 		{"Customer", tables.Customer, tables.CustomerIndex, ""},
 		{"Person", tables.Person, tables.PersonIndex, ""},
 		{"Fruit", tables.Fruit, tables.FruitIndex, tables.FruitConstant},
+		{"Container", tables.Container, tables.ContainerIndex, ""},
+		{"Price", tables.Price, tables.PriceIndex, ""},
+		{"Location", tables.Location, tables.LocationIndex, ""},
+		{"Delivery", tables.Delivery, tables.DeliveryIndex, ""},
 	}
 
 	c, err := db.GetSession(ctxInit)

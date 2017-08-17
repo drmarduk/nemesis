@@ -10,7 +10,6 @@ type Location struct {
 	Street  string
 	Zipcode string // we need the leading zero
 	City    string
-	ZipCode string
 
 	Phone string
 	Mobil string

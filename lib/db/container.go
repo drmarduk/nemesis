@@ -10,9 +10,14 @@ import (
 // Container is a main place to combine fruits
 type Container struct {
 	ID     int64
+	Hash   int // checksum
 	Fruit  int
 	Status int
 	IsBio  bool
+
+	// TotalAmount must only be set,
+	// when container is closed
+	TotalAmount float64
 
 	CreatedAt      time.Time
 	CreatedWhere   int
