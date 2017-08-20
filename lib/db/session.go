@@ -15,6 +15,7 @@ var (
 // PostgreSQL is hardcoded!!!! keep in mind
 // with ssl enabled
 func GetSession(ctx Data) (*sql.DB, error) {
+	// return cached version
 	if session != nil {
 		return session, nil
 	}
@@ -40,7 +41,7 @@ func GetSession(ctx Data) (*sql.DB, error) {
 func ResetSession() error {
 	err := session.Close()
 	if err != nil {
-		return err
+		return err // TODO: add test case
 	}
 	session = nil
 	return nil
