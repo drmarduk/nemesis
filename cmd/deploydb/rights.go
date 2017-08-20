@@ -11,8 +11,10 @@ import (
 // crashes on failure
 func grantRights(tx *sql.Tx, db, user string) {
 	q := fmt.Sprintf(
-		`GRANT ALL PRIVILEGES ON DATABASE %s TO %s;`,
+		`GRANT ALL PRIVILEGES ON DATABASE %s TO %s;
+		GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO %s;`,
 		db,
+		user,
 		user,
 	)
 	r, err := tx.Exec(q)

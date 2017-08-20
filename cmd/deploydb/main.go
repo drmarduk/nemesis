@@ -71,6 +71,7 @@ func main() {
 	users := []User{
 		{"nemesis_admin", "nemesis_admin", true},
 		{"nemesis_user", "nemesis_user", false},
+		{"nemesis_test", "nemesis_test", false},
 	}
 
 	tables := []Table{
